@@ -80,7 +80,7 @@ class App extends Component {
           images={this.state.images}
           toggleModal={this.toggleModal}
         />
-        {this.state.images.length === 12 && this.state.button && (
+        {this.state.images.length >= 12 && this.state.button && (
           <Button loadMore={this.loadMore} />
         )}
         {this.state.loadSpin && <Loader />}
