@@ -5,6 +5,7 @@ import fetchImages from "./services/fetchImages";
 import Loader from "./components/Loader";
 import ImageGallery from "./components/ImageGallery";
 import Button from "./components/Button";
+import Modal from "./components/Modal";
 
 class App extends Component {
   state = {
@@ -14,7 +15,7 @@ class App extends Component {
     button: true,
     loadSpin: false,
     modal: false,
-    modalImage: {},
+    largeImage: {},
   };
   componentDidUpdate() {
     window.scrollTo({
@@ -22,6 +23,7 @@ class App extends Component {
       behavior: "smooth",
     });
   }
+  // подгрузка изображений из формы
   onFormSubmit = (value) => {
     if (value) {
       this.setState({ loadSpin: true });
@@ -40,7 +42,7 @@ class App extends Component {
       alert("Нет данных");
     }
   };
-
+  // подгрузка изображений по кнопке
   loadMore = () => {
     const { images, value, page } = this.state;
     this.setState({ loadSpin: true });
@@ -57,16 +59,32 @@ class App extends Component {
       return { page: page + 1 };
     });
   };
+  // ВКЛ-ВЫКЛ Модалки
+  toggleModal = (img) => {
+    const { modal } = this.state;
+    img
+      ? this.setState({ modal: !modal, largeImage: img })
+      : this.setState({ modal: !modal });
+  };
 
   render() {
     return (
       <div>
         <Searchbar onFormSubmit={this.onFormSubmit} />
-        <ImageGallery images={this.state.images} />
+        <ImageGallery
+          images={this.state.images}
+          toggleModal={this.toggleModal}
+        />
         {this.state.images.length !== 0 && this.state.button && (
           <Button loadMore={this.loadMore} />
         )}
         {this.state.loadSpin && <Loader />}
+        {this.state.modal && (
+          <Modal
+            toggleModal={this.toggleModal}
+            largeImage={this.state.largeImage}
+          />
+        )}
       </div>
     );
   }

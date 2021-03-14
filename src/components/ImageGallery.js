@@ -1,11 +1,10 @@
 import ImageGalleryItem from "./ImageGalleryItem";
 
-const ImageGallery = ({ images }) => {
-  console.log(images);
+const ImageGallery = ({ images, toggleModal }) => {
   return (
     <ul className="ImageGallery">
       {images.map((img) => (
-        <ImageGalleryItem key={img.id} img={img} />
+        <ImageGalleryItem key={img.id} img={img} toggleModal={toggleModal} />
       ))}
     </ul>
   );

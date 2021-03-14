@@ -183,11 +183,21 @@ img {
 .Modal {
   max-width: calc(100vw - 48px);
   max-height: calc(100vh - 24px);
+  padding: 5px;
+  background-color: #fff;
 }
 
 /*
 * Стили компонента Buton (Load more)
 */
+.divButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: 100%;
+}
+
 .Button {
   padding: 8px 16px;
   border-radius: 3px;
