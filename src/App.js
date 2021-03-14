@@ -23,23 +23,28 @@ class App extends Component {
       behavior: "smooth",
     });
   }
-  // подгрузка изображений из формы
+
   onFormSubmit = (value) => {
     if (value) {
       this.setState({ loadSpin: true });
       fetchImages(value, 1)
         .then(({ data }) => data.hits)
-        .then((data) =>
-          this.setState({
-            images: data,
-            value: value,
-            page: 2,
-            loadSpin: false,
-          })
-        )
+        .then((data) => {
+          if (data.length === 0) {
+            alert("Ooops - Nothing found");
+            this.setState({ loadSpin: false });
+          } else {
+            this.setState({
+              images: data,
+              value: value,
+              page: 2,
+              loadSpin: false,
+            });
+          }
+        })
         .catch((error) => console.error({ error }));
     } else {
-      alert("Нет данных");
+      alert("There is no data");
     }
   };
   // подгрузка изображений по кнопке
@@ -75,7 +80,7 @@ class App extends Component {
           images={this.state.images}
           toggleModal={this.toggleModal}
         />
-        {this.state.images.length !== 0 && this.state.button && (
+        {this.state.images.length === 12 && this.state.button && (
           <Button loadMore={this.loadMore} />
         )}
         {this.state.loadSpin && <Loader />}

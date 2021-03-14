@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const ImageGalleryItem = ({ img, toggleModal }) => {
   const { webformatURL, tags } = img;
   return (
@@ -13,3 +15,8 @@ const ImageGalleryItem = ({ img, toggleModal }) => {
 };
 
 export default ImageGalleryItem;
+
+ImageGalleryItem.propTypes = {
+  img: PropTypes.node,
+  toggleModal: PropTypes.func.isRequired,
+};
